@@ -15,7 +15,7 @@ class StudentAdmin(admin.ModelAdmin):
     search_fields = ['bbs_id']
 
 class ReplyAdmin(admin.ModelAdmin):
-    search_fields = ['reply_id']
+    search_fields = ['author__bbs_id']
 
 # Register your models here.
 admin.site.register(Class, ClassAdmin)
