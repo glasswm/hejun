@@ -90,6 +90,12 @@ def updateAll(request):
         i.update()
     return HttpResponse("processing all")
 
+def updateAllNew(request):
+    for i in Thread.objects.all():
+        print 'update thread ' + str(i.id)
+        i.update(start_page=i.last_update_page)
+    return HttpResponse("processing all")
+
 def updateAllwithpage(request, start_page, end_page):
     for i in Thread.objects.all():
         print 'update thread ' + str(i.id)

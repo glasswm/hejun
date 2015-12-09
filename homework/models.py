@@ -110,7 +110,7 @@ class Thread(models.Model):                         #refer to "tong zhi bi du", 
             end_page = page
         except_count = update_detail(self, start_page, end_page, header)
         self.last_update_time = datetime.now()
-        self.last_update_page = page
+        self.last_update_page = end_page
         self.save()
         print 'exception count: ' + str(except_count)
 
