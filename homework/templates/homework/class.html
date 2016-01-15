@@ -22,7 +22,7 @@
                 {% if sv.0 == 0 %}
                     <a href="{% url 'homework:thread' sk %}"><img src="{% static 'homework/img/red.png' %}" width="20px" height="20px" /></a>
                 {% else %}
-                    <img src="{% static 'homework/img/green.png' %}" alt="{{ sv.1 }}" width='20px' height='20px' />
+                    <img src="{% static 'homework/img/green.png' %}" title="{{ sv.1 }}" width='20px' height='20px' />
                 {% endif %}
             {% endfor %}
         </td>
