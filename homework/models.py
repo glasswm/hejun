@@ -56,7 +56,7 @@ class Student(models.Model):
                 total_words += r.contentLength
                 if r.post_time < post_time:
                     post_time = r.post_time
-            res[i.id] = (total_words, post_time)
+            res[i.id] = (total_words, post_time.strftime("%Y-%m-%d %H:%M:%S"))
         #print res
         return res
 
