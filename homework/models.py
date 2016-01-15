@@ -51,9 +51,12 @@ class Student(models.Model):
         for i in Thread.objects.all():
             replys = Reply.objects.filter(author=self, thread=i)
             total_words = 0
+            post_time = datetime.now()
             for r in replys:
                 total_words += r.contentLength
-            res[i.id] = total_words
+                if r.post_time < post_time:
+                    post_time = r.post_time
+            res[i.id] = (total_words, post_time)
         #print res
         return res
 
