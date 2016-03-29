@@ -228,21 +228,21 @@ def update_detail(thread, start_page, end_pages, header=None):
             try:
                 post_time_tag = tag.find('em', id=re.compile(r'authorposton\d+'))
                 if post_time_tag.find('span') == None:
-                    post_time = time.strptime(post_time_tag.string, u'发表于 %Y年%m月%d日 %H:%M:%S',)
+                    post_time = time.strptime(post_time_tag.string, u'发表于 %Y年%m月%d日 %H:%M',)
                 else:
-                    post_time = time.strptime(post_time_tag.find('span')['title'], u'%Y年%m月%d日 %H:%M:%S')
+                    post_time = time.strptime(post_time_tag.find('span')['title'], u'%Y年%m月%d日 %H:%M')
                 post_datetime = datetime(*post_time[:6])
             except:
-                logging.warning('exception: get post time with second failed')
+                logging.warning('exception: get post time without second failed')
                 try:
                     post_time_tag = tag.find('em', id=re.compile(r'authorposton\d+'))
                     if post_time_tag.find('span') == None:
-                        post_time = time.strptime(post_time_tag.string, u'发表于 %Y年%m月%d日 %H:%M',)
+                        post_time = time.strptime(post_time_tag.string, u'发表于 %Y年%m月%d日 %H:%M:%S',)
                     else:
-                        post_time = time.strptime(post_time_tag.find('span')['title'], u'%Y年%m月%d日 %H:%M')
+                        post_time = time.strptime(post_time_tag.find('span')['title'], u'%Y年%m月%d日 %H:%M:%S')
                     post_datetime = datetime(*post_time[:6])
                 except:
-                    logging.exception('exception: get post time without second also failed')
+                    logging.exception('exception: get post time with second also failed')
                     except_count += 1
                     continue
             #print post_datetime
