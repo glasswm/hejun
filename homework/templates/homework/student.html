@@ -42,7 +42,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
 
 {% for sk,sv in situation.items %}
-    {% if sv == 0 %}
+    {% if sv.0 == 0 %}
         <a href="{% url 'homework:thread' sk %}"><img src="{% static 'homework/img/red.png' %}" width="20px" height="20px" /></a>
     {% else %}
         <img src="{% static 'homework/img/green.png' %}" width='20px' height='20px' />
@@ -54,7 +54,7 @@
 {% if mustRead_list %}
     <ul>
     {% for mr, word_count, reply_count in mustRead_list %}
-        {% if word_count != 0 %}
+        {% if word_count.0 != 0 %}
             <li><a href="">{{ mr.title }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
             reply {{ reply_count }} times, total {{ word_count }} words.
             </li>
@@ -74,7 +74,7 @@
     <ul>
     {% for c, word_count, reply_count in coreHw_list %}
 
-        {% if word_count != 0 %}
+        {% if word_count.0 != 0 %}
             <li><a href="">{{ c.title }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
             reply {{ reply_count }} times, total {{ word_count }} words.
             </li>

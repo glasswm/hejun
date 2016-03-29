@@ -46,14 +46,14 @@ def student(request, student_id):
         if situation.has_key(mr.id):
             mustRead_list_tuple.append((mr, situation[mr.id], len(Reply.objects.filter(author=student, thread=mr))))
         else:
-            mustRead_list_tuple.append((mr, 0, 0))
+            mustRead_list_tuple.append((mr, (0,0), 0))
     coreHw_list = Thread.objects.filter(thread_type=CORE_LESSON_HOMEWORK)
     coreHw_list_tuple = []
     for c in coreHw_list:
         if situation.has_key(c.id):
             coreHw_list_tuple.append((c, situation[c.id], len(Reply.objects.filter(author=student, thread=c))))
         else:
-            coreHw_list_tuple.append((c, 0, 0))
+            coreHw_list_tuple.append((c, (0,0), 0))
     return render(request, 'homework/student.html', {'student': student, 'situation': situation,
                                                      'mustRead_list': mustRead_list_tuple, 'coreHw_list': coreHw_list_tuple})
 
@@ -66,14 +66,14 @@ def student_by_bbs_id(request, bbs_id):
         if situation.has_key(mr.id):
             mustRead_list_tuple.append((mr, situation[mr.id], len(Reply.objects.filter(author=student, thread=mr))))
         else:
-            mustRead_list_tuple.append((mr, 0, 0))
+            mustRead_list_tuple.append((mr, (0,0), 0))
     coreHw_list = Thread.objects.filter(thread_type=CORE_LESSON_HOMEWORK)
     coreHw_list_tuple = []
     for c in coreHw_list:
         if situation.has_key(c.id):
             coreHw_list_tuple.append((c, situation[c.id], len(Reply.objects.filter(author=student, thread=c))))
         else:
-            coreHw_list_tuple.append((c, 0, 0))
+            coreHw_list_tuple.append((c, (0,0), 0))
     return render(request, 'homework/student.html', {'student': student, 'situation': situation,
                                                      'mustRead_list': mustRead_list_tuple, 'coreHw_list': coreHw_list_tuple})
 
