@@ -96,6 +96,12 @@ def updateAllNew(request):
         i.update(start_page=i.last_update_page)
     return HttpResponse("processing all")
 
+def updateAllApi(request):
+    for i in Thread.objects.all():
+        print 'update thread with json api: ' + str(i.id)
+        i.updateWithJsonApi(start_page=i.last_update_page)
+    return HttpResponse("processing all with json api")
+
 def updateAllwithpage(request, start_page, end_page):
     for i in Thread.objects.all():
         print 'update thread ' + str(i.id)
@@ -106,6 +112,11 @@ def update(request, thread_id):
     t = get_object_or_404(Thread, pk=thread_id)
     t.update()
     return HttpResponse("processing one")
+
+def updateAPI(request, thread_id):
+    t = get_object_or_404(Thread, pk=thread_id)
+    t.updateWithJsonApi()
+    return HttpResponse("processing one with json api")
 
 def updatewithpage(request, thread_id, start_page, end_page):
     t = get_object_or_404(Thread, pk=thread_id)

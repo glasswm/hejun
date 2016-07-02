@@ -1,5 +1,5 @@
 # -*- coding: GBK -*-
-
+import json
 import logging
 import re
 
@@ -10,9 +10,12 @@ from urlparse import urlsplit, urljoin
 from bs4 import BeautifulSoup
 from datetime import datetime
 from django.db import models
+import hashlib
+import requests
+import time
 
 # Create your models here.
-import time
+
 
 BBS_HOME_URL = 'http://bbs.hejun.com'
 BBS_LOGIN_URL = BBS_HOME_URL + '/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1'
@@ -21,6 +24,9 @@ PASSWD = 'cdfc796f0f5ffc6dd13973a6eeeed024'
 DISCUZ_SITE_NAME = 'R5s6_2132'
 COOKIE_SALTKEY_NAME = DISCUZ_SITE_NAME + '_saltkey'
 COOKIE_AUTH_NAME = DISCUZ_SITE_NAME + '_auth'
+HEJUN_BBS_SECRET = 'hejun2d8j3k5l'
+PAGE_SIZE = 500
+HEJUN_BBS_API = 'http://bbs.hejun.com/api.php'
 
 
 MUST_READ = '0'
@@ -61,6 +67,7 @@ class Student(models.Model):
         return res
 
 class Thread(models.Model):                         #refer to "tong zhi bi du", "da ke zuo ye", etc
+    tid = models.IntegerField()
     title = models.CharField(max_length=200)
     url_addr = models.CharField(max_length=200)
     post_time = models.DateTimeField()
@@ -116,6 +123,25 @@ class Thread(models.Model):                         #refer to "tong zhi bi du", 
         self.last_update_page = end_page
         self.save()
         print 'exception count: ' + str(except_count)
+
+    def updateWithJsonApi(self, start_page=1, end_page=-1):
+        md5 = hashlib.md5()
+        src = 'tid=' + str(self.tid) + '&' + HEJUN_BBS_SECRET
+        md5.update(src)
+        sign = md5.hexdigest()
+
+        #get thread info
+        params = dict(
+            mod = 'thread',
+            tid = self.tid,
+            sign = sign
+        )
+
+        resp = requests.get(url=HEJUN_BBS_API, params=params)
+        data = json.loads(resp.text)
+
+        print data
+
 
 
 class Reply(models.Model):
