@@ -115,8 +115,11 @@ def update(request, thread_id):
 
 def updateAPI(request, thread_id):
     t = get_object_or_404(Thread, pk=thread_id)
-    t.updateWithJsonApi()
-    return HttpResponse("processing one with json api")
+    ret = t.updateWithJsonApi(start_page=t.last_update_page_api)
+    if ret == False:
+        return HttpResponse("Failed, processing one with json api")
+    else:
+        return HttpResponse("Success, processing one with json api")
 
 def updatewithpage(request, thread_id, start_page, end_page):
     t = get_object_or_404(Thread, pk=thread_id)

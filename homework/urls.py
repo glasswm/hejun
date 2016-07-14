@@ -16,5 +16,6 @@ urlpatterns = patterns('',
                        url(r'^updateallwithpage/(?P<start_page>\d+)/(?P<end_page>\d+)/$', views.updateAllwithpage, name='updateAllwithpage'),
                        url(r'^update/(?P<thread_id>\d+)/$', views.update, name='update'),
                        url(r'^updatewithpage/(?P<thread_id>\d+)/(?P<start_page>\d+)/(?P<end_page>\d+)/$', views.updatewithpage, name='updatewithpage'),
-                       url(r'^newupdateallnew/$', views.updateAllApi, name='newUpdateAllNew'),
+                       url(r'^updateallapi/$', views.updateAllApi, name='updateAllApi'),
+                       url(r'^updateapi/(?P<thread_id>\d+)/$', views.updateAPI, name='updateApi'),
                        )
